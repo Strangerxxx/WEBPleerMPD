@@ -37,7 +37,7 @@ function updateList(list){
 	var select = $(".list select");
 	select.empty();
 	list.each(function(key,val){
-		select.append("<option onclick='addTrack('"+val.trackId+"')' class='"+val.status+"'>"+key+" - "+val.name+" - "+val.duration+"</option>");
+		select.append("<option onclick='addTrack('"+val.track_id+"')' class='"+val.status+"'>"+key+" - "+val.name+" - "+val.duration+"</option>");
 	});
 	return true;
 }
