@@ -1,14 +1,16 @@
+var config = {
+	url: "/backend"
+}
 //bindings
-var url = "/backend"
 $(document).ready(function(){
 	$('.search input').bind('change', function(){ search($('.search input').val()) });
 	$('.search i').bind('click', function(){ search($('.search input').val()) });
 });
 // shortcuts
 var timer = setInterval(update, 10000);
-function addTrack(var){ getList({action: 'addTrack', track_id: var}, url); timer = setInterval(update, 10000);}
-function update(){ getList({action: 'queue'}, url) }
-function search(var){ clearInterval(timer); getList({action: 'addTrack', q: var}, url); }
+function addTrack(val){ getList({action: 'addTrack', track_id: val}, config.url); timer = setInterval(update, 10000);}
+function update(){ getList({action: 'queue'}, config.url) }
+function search(val){ clearInterval(timer); getList({action: 'addTrack', q: val}, config.url); }
 //
 function getList(param,url){
 	var action = param.action;

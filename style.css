@@ -11,7 +11,7 @@ body{
 	height: 50px;
 }
 .search input{
-	width: inherit;
+	width: 99%;
 	height: inherit;
 }
 .search i{
