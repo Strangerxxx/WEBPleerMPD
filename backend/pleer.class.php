@@ -2,7 +2,8 @@
 	/**
 	 * The PHP class for pleer.com API
 	 * @author Stranger <stranger.danek@gmail.com>
-	 * @license
+	 * @license https://github.com/Strangerxxx/WEBPleerMPD/blob/master/LICENSE
+	 * @version 0.1.1
 	 */
 
 	class Pleer
