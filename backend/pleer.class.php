@@ -106,6 +106,14 @@
 		}
 
 		/**
+		 * @return void
+		 */
+		public function __destruct()
+		{
+			curl_close($this->ch);
+		}
+
+		/**
 		 * @throws	PleerException
 		 * @return	mixed
 		 */
