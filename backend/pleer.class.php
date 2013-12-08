@@ -272,9 +272,9 @@
 		}
 
 		/**
-		 * @param   string  $url
-		 * @param   string  $method
-		 * @param 	array 	$postfields
+		 * @param	string	$url
+		 * @param	string	$method
+		 * @param	array	$postfields
 		 * @param	bool	$auth
 		 * @throws	PleerException
 		 * @return	string
