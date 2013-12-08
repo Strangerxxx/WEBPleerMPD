@@ -1,21 +1,93 @@
 <?php
-	class Pleer{
+	class Pleer
+	{
+		/**
+		 * Pleer API application identificator
+		 * @var string
+		 */
 		private $username;
-		private $password; 
+
+		/**
+		 * Pleer API application key
+		 * @var string
+		 */
+		private $password;
+
+		/**
+		 * Pleer API access token
+		 * @var string
+		 */
 		private $access_token;
-		private $ch;
+
+		/**
+		 * Authorization status
+		 * @var string
+		 */
 		private $auth = false;
+
+		/**
+		 * Instance curl
+		 * @var resource
+		 */
+		private $ch;
+
+		/**
+		 * Pleer API token endpoint
+		 * @var string
+		 */
 		private $token_endpoint;
+
+		/**
+		 * Pleer API method endpoint
+		 * @var string
+		 */
 		private $method_endpoint;
+
+		/**
+		 * Error
+		 * @var string
+		 */
 		public $error;
+
+		/**
+		 * Error description
+		 * @var string
+		 */
 		public $error_description;
+
+		/**
+		 * Warning
+		 * @var string
+		 */
 		public $warning;
+
+		/**
+		 * Warning description
+		 * @var string
+		 */
 		public $warning_description;
 
+		/**
+		 * Default Pleer API token endpoint
+		 * @const string
+		 */
+		const TOKEN_ENDPOINT 	=	'http://api.pleer.com/api/token.php';
 
-		public function __construct($username, $password,
-			$token_endpoint = 'http://api.pleer.com/api/token.php',
-			$method_endpoint = 'http://api.pleer.com/resource.php')
+		/**
+		 * Default Pleer API method endpoint
+		 * @const string
+		 */
+		const METHOD_ENDPOINT	=	'http://api.pleer.com/index.php';
+
+		/**
+		 * @param	string	$username
+		 * @param	string	$password
+		 * @param	string	$token_endpoint
+		 * @param	string	$method_endpoint
+		 * @throws	PleerException
+		 * @return	void
+		 */
+		public function __construct($username, $password, $token_endpoint = TOKEN_ENDPOINT, $method_endpoint = METHOD_ENDPOINT)
 		{
 			$this->token_endpoint = $token_endpoint;
 			$this->method_endpoint = $method_endpoint
@@ -26,6 +98,10 @@
 
 		}
 
+		/**
+		 * @throws	PleerException
+		 * @return	mixed
+		 */
 		public function getAccessToken()
 		{
 			if(!is_null($this->access_token)) return $this->access_token;
@@ -44,7 +120,13 @@
 
 		}
 
-		public function tracks_search($query = '', $page = 1)
+		/**
+		 * @param	string	$query
+		 * @param	string	$page
+		 * @throws	PleerException
+		 * @return	mixed
+		 */
+		public function tracks_search($query = '', $page = '1')
 		{
 			if(!$this->auth){
 				$this->getAccessToken();
@@ -82,6 +164,11 @@
 			}
 		}
 
+		/**
+		 * @param	string	$track_id
+		 * @throws	PleerException
+		 * @return	mixed
+		 */
 		public function tracks_get_info($track_id)
 		{
 			if(!$this->auth){
@@ -112,6 +199,11 @@
 			}
 		}
 
+		/**
+		 * @param	string	$track_id
+		 * @throws	PleerException
+		 * @return	mixed
+		 */
 		public function tracks_get_lyrics($track_id)
 		{
 			if(!$this->auth){
@@ -142,6 +234,12 @@
 			}
 		}
 
+		/**
+		 * @param	string	$track_id
+		 * @param	string	$reason
+		 * @throws	PleerException
+		 * @return	mixed
+		 */
 		public function tracks_get_download_link($track_id, $reason = 'save')
 		{
 			if(!$this->auth){
@@ -173,6 +271,14 @@
 			}
 		}
 
+		/**
+		 * @param   string  $url
+		 * @param   string  $method
+		 * @param 	array 	$postfields
+		 * @param	bool	$auth
+		 * @throws	PleerException
+		 * @return	string
+		 */
 		private function request($url, $method = 'GET', $postfields = array(), $auth = false)
 		{
 			curl_setopt_array($this->ch, array(
