@@ -30,13 +30,13 @@
 		{
 			if(!is_null($this->access_token)) return $this->access_token;
 			elseif(is_null($this->username) || is_null($this->password)) return false;
-			else {
+			else{
 				$rs = json_decode($this->request($this->token_endpoint, 'POST', array('grant_type'=>'client_credentials'), true), true);
-				if(isset($rs['error'])) {
+				if(isset($rs['error'])){
 					$this->error = $rs['error'];
 					$this->error_description = $rs['error_description'];
 					return false; 
-				} else {
+				} else{
 					$this->auth = true;
 					$this->access_token = $rs['access_token'];
 					return $this->access_token;
@@ -71,7 +71,7 @@
 					$this->warning = 'no_tracks_found';
 					$this->warning_description = 'There is no tracks found by your query';
 					return false;
-				} else {
+				} else{
 					$return_tracks = array();
 					foreach ($tracks as $track) {
 						array_push($return_tracks, $track)''
@@ -79,6 +79,97 @@
 					return $return_tracks;
 				}
 				
+			}
+		}
+
+		public function tracks_get_info($track_id)
+		{
+			if(!$this->auth){
+				$this->getAccessToken();
+			}
+			$rs = json_decode($this->request(
+				$this->method_endpoint,
+				'POST',
+				array(
+					'access_token'	=>	$this->access_token,
+					'method'		=>	'tracks_get_info',
+					'track_id'		=>	$track_id
+					)
+				),
+				true
+			);
+			if(isset($rs['error'])){
+				$this->error = $rs['error'];
+				$this->error_description = $rs['error_description'];
+				return false;
+			} elseif(!$rs['success']){
+				$this->warning = 'something_wrong';
+				$this->warning_description = $rs['message'];
+				return false;
+			} else{
+				$track = $rs[data];
+				return $track;
+			}
+		}
+
+		public function tracks_get_lyrics($track_id)
+		{
+			if(!$this->auth){
+				$this->getAccessToken();
+			}
+			$rs = json_decode($this->request(
+				$this->method_endpoint,
+				'POST',
+				array(
+					'access_token'	=>	$this->access_token,
+					'method'		=>	'tracks_get_lyrics',
+					'track_id'		=>	$track_id
+					)
+				),
+				true
+			);
+			if(isset($rs['error'])){
+				$this->error = $rs['error'];
+				$this->error_description = $rs['error_description'];
+				return false;
+			} elseif(!$rs['success']){
+				$this->warning = 'something_wrong';
+				$this->warning_description = $rs['message'];
+				return false;
+			} else{
+				$lyrics = $rs[text];
+				return $lyrics;
+			}
+		}
+
+		public function tracks_get_download_link($track_id, $reason = 'save')
+		{
+			if(!$this->auth){
+				$this->getAccessToken();
+			}
+			$rs = json_decode($this->request(
+				$this->method_endpoint,
+				'POST',
+				array(
+					'access_token'	=>	$this->access_token,
+					'method'		=>	'tracks_get_download_link',
+					'track_id'		=>	$track_id,
+					'reason'		=>	$reason
+					)
+				),
+				true
+			);
+			if(isset($rs['error'])){
+				$this->error = $rs['error'];
+				$this->error_description = $rs['error_description'];
+				return false;
+			} elseif(!$rs['success']){
+				$this->warning = 'something_wrong';
+				$this->warning_description = $rs['message'];
+				return false;
+			} else{
+				$url = stripslashes($rs[url]);
+				return $url;
 			}
 		}
 
@@ -96,4 +187,3 @@
         	return curl_exec($this->ch);
     	}
 	}
-	
