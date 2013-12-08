@@ -1,9 +1,14 @@
-var listUrl = "list.json";
-var this.url = "";
+//bindings
+var url = "/backend"
+$(document).ready(function(){
+	$('.search input').bind('change', function(){ search($('.search input').val()) });
+	$('.search i').bind('click', function(){ search($('.search input').val()) });
+});
 // shortcuts
-function addTrack(var){ getList({action: 'addTrack', track_id: var}, this.url); }
-function update(){ getList({action: 'queue'}, this.url) }
-function search(var){ getList({action: 'addTrack', track_id: var}, this.url); }
+var timer = setInterval(update, 10000);
+function addTrack(var){ getList({action: 'addTrack', track_id: var}, url); timer = setInterval(update, 10000);}
+function update(){ getList({action: 'queue'}, url) }
+function search(var){ clearInterval(timer); getList({action: 'addTrack', q: var}, url); }
 //
 function getList(param,url){
 	var action = param.action;
@@ -27,8 +32,6 @@ function getList(param,url){
 				track_id: param.track_id
 			},url);
 			if(req.status) return getList({action: 'queue'},url);
-			break;
-		case default:
 			break;
 	}
 }

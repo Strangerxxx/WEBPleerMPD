@@ -14,6 +14,10 @@ body{
 	width: inherit;
 	height: inherit;
 }
+.search i{
+	cursor:pointer;
+	margin: 0 0 0 -30px;
+}
 .list{
 	width: 500px;
 	height: 500px;

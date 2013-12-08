@@ -9,7 +9,7 @@
 		$return = array();
 		switch ($action) {
 			case 'queue':
-				$list = showQueue();
+				$list = showQueue($mpd);
 				break;
 			default:
 				break;
