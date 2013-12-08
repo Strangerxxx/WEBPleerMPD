@@ -10,7 +10,7 @@ body{
 	width: 100%;
 	height: 50px;
 }
-.search input{
+.search .input-group input[type="text"]{
 	width: 99%;
 	height: inherit;
 }
