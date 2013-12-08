@@ -3,8 +3,8 @@ var config = {
 }
 //bindings
 $(document).ready(function(){
-	$('.search input').bind('change', function(){ search($('.search input').val()) });
-	$('.search i').bind('click', function(){ search($('.search input').val()) });
+	$('#search-input').bind('change', function(){ search($('.search input').val()) });
+	$('#search-button').bind('click', function(){ search($('.search input').val()) });
 });
 // shortcuts
 var timer = setInterval(update, 10000);

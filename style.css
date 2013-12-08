@@ -10,14 +10,6 @@ body{
 	width: 100%;
 	height: 50px;
 }
-.search .input-group input[type="text"]{
-	width: 99%;
-	height: inherit;
-}
-.search i{
-	cursor:pointer;
-	margin: 0 0 0 -30px;
-}
 .list{
 	width: 500px;
 	height: 500px;
