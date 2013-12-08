@@ -1,4 +1,10 @@
 <?php
+	/**
+	 * The PHP class for pleer.com API
+	 * @author Stranger <stranger.danek@gmail.com>
+	 * @license
+	 */
+
 	class Pleer
 	{
 		/**
