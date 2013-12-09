@@ -300,11 +300,12 @@
 				CURLOPT_USERAGENT       => 'MPD/1.0 (+StrangeMPD))',
 				CURLOPT_RETURNTRANSFER  => true,
 				CURLOPT_SSL_VERIFYPEER  => false,
-				CURLOPT_USERPWD			=> (!is_null($this->username) && !is_null($this->password) && $auth)? $this->username.':'.$this->password : '',
 				CURLOPT_POST            => ($method == 'POST'),
 				CURLOPT_POSTFIELDS      => $postfields,
 				CURLOPT_URL             => $url
 			));
+			if(!is_null($this->username) && !is_null($this->password) && $auth)
+				curl_setopt($this->ch, CURLOPT_USERPWD, $this->username.':'.$this->password)
         	return curl_exec($this->ch);
     	}
 	}
