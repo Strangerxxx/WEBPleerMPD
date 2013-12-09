@@ -97,7 +97,7 @@
 		public function __construct($username, $password, $token_endpoint = self::TOKEN_ENDPOINT, $method_endpoint = self::METHOD_ENDPOINT)
 		{
 			$this->token_endpoint = $token_endpoint;
-			$this->method_endpoint = $method_endpoint
+			$this->method_endpoint = $method_endpoint;
 			$this->username = $username;
 			$this->password = $password;
 			$this->ch = curl_init();
