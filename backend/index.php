@@ -4,7 +4,7 @@
 	require_once 'pleer.class.php';
 	require_once 'functions.php';
 	$mpd = new mpd(MPD_HOST,MPD_PORT,MPD_PWD);
-	$pleer new Pleer(PLEER_USER,PLEER_PASSWORD);
+	$pleer = new Pleer(PLEER_USER,PLEER_PASSWORD);
 	if(!$mpd->connected) die('Could not connected to mpd-server');
 	if(!$pleer->auth) die('Pleer error: '.$pleer->error.' : '.$pleer->error_description);
 	if(!empty($_GET['action'])){
