@@ -1,6 +1,6 @@
 # WEBPleerMPD
 ## Description
-Web control panel with pleer.com integration, based on PHP, JQuery and some magic
+Web control panel for MPD with pleer.com integration, based on PHP, JQuery and some magic
 ## Contents
 todo: write contents
 ## Copyrights
