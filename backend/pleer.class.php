@@ -101,7 +101,7 @@
 			$this->username = $username;
 			$this->password = $password;
 			$this->ch = curl_init();
-			$this->access_token = getAccessToken()
+			$this->access_token = getAccessToken();
 		}
 
 		/**
