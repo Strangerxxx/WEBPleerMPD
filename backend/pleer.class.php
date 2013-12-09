@@ -94,7 +94,7 @@
 		 * @throws	PleerException
 		 * @return	void
 		 */
-		public function __construct($username, $password, $token_endpoint = $this->TOKEN_ENDPOINT, $method_endpoint = $this->METHOD_ENDPOINT)
+		public function __construct($username, $password, $token_endpoint = self::TOKEN_ENDPOINT, $method_endpoint = self::METHOD_ENDPOINT)
 		{
 			$this->token_endpoint = $token_endpoint;
 			$this->method_endpoint = $method_endpoint
