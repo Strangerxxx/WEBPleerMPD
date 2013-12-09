@@ -78,7 +78,7 @@
 		 * Default Pleer API token endpoint
 		 * @const string
 		 */
-		const TOKEN_ENDPOINT 	=	'http://api.pleer.com/api/token.php';
+		const TOKEN_ENDPOINT 	=	'http://api.pleer.com/token.php';
 
 		/**
 		 * Default Pleer API method endpoint
@@ -94,14 +94,14 @@
 		 * @throws	PleerException
 		 * @return	void
 		 */
-		public function __construct($username, $password, $token_endpoint = TOKEN_ENDPOINT, $method_endpoint = METHOD_ENDPOINT)
+		public function __construct($username, $password, $token_endpoint = $this->TOKEN_ENDPOINT, $method_endpoint = $this->METHOD_ENDPOINT)
 		{
 			$this->token_endpoint = $token_endpoint;
 			$this->method_endpoint = $method_endpoint
 			$this->username = $username;
 			$this->password = $password;
 			$this->ch = curl_init();
-			$this->access_token = getAccessToken();
+			$this=>getAccessToken();
 		}
 
 		/**
@@ -131,6 +131,7 @@
 					$this->access_token = $rs['access_token'];
 					return $this->access_token;
 				}
+			}
 
 		}
 
@@ -170,7 +171,7 @@
 				} else{
 					$return_tracks = array();
 					foreach ($tracks as $track) {
-						array_push($return_tracks, $track)''
+						array_push($return_tracks, $track);
 					}
 					return $return_tracks;
 				}
