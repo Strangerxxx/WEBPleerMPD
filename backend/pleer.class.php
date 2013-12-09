@@ -27,12 +27,6 @@
 		private $access_token;
 
 		/**
-		 * Authorization status
-		 * @var string
-		 */
-		private $auth = false;
-
-		/**
 		 * Instance curl
 		 * @var resource
 		 */
@@ -49,6 +43,12 @@
 		 * @var string
 		 */
 		private $method_endpoint;
+
+		/**
+		 * Authorization status
+		 * @var string
+		 */
+		public $auth = false;
 
 		/**
 		 * Error
@@ -102,7 +102,6 @@
 			$this->password = $password;
 			$this->ch = curl_init();
 			$this->access_token = getAccessToken()
-
 		}
 
 		/**

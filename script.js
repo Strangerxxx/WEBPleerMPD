@@ -3,14 +3,14 @@ var config = {
 }
 //bindings
 $(document).ready(function(){
-	$('#search-input').bind('change', function(){ search($('.search input').val()) });
-	$('#search-button').bind('click', function(){ search($('.search input').val()) });
+	$('.search input').bind('change', function(){ search($('.search input').val()) });
+	$('.search i').bind('click', function(){ search($('.search input').val()) });
 });
 // shortcuts
 var timer = setInterval(update, 10000);
 function addTrack(val){ getList({action: 'addTrack', track_id: val}, config.url); timer = setInterval(update, 10000);}
 function update(){ getList({action: 'queue'}, config.url) }
-function search(val){ clearInterval(timer); getList({action: 'addTrack', q: val}, config.url); }
+function search(val){ clearInterval(timer); getList({action: 'addTrack', query: val}, config.url); }
 //
 function getList(param,url){
 	var action = param.action;
@@ -24,7 +24,8 @@ function getList(param,url){
 		case 'search':
 			req = sendRequest({
 				action: 'search',
-				q: param.q,
+				query: param.query,
+				page: param.page
 			},url);
 			if(req.status) return updateList(req.list);
 			break;

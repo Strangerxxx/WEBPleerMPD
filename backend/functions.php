@@ -17,3 +17,16 @@
 			return (object) $list;
 		}
 	}
+	function showSearch($query, $page, $pleer){
+		$list = array();
+		$searchlist = $pleer->tracks_search($query, $page);
+		foreach ($searchlist as $id => $track) {
+			array_push($list, array(
+				'track_id'	=>	$track['track_id'],
+				'status'	=>	'',
+				'name'		=>	$track['artist'].' - '.$track['track'],
+				'duration'	=>	$track['length']
+				)
+			);
+		}
+	}
