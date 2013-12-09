@@ -296,16 +296,15 @@
 		 */
 		private function request($url, $method = 'GET', $postfields = array(), $auth = false)
 		{
-			$curl_setopt = array();
-				$[CURLOPT_USERAGENT] = 'PHPAPI/1.0 (+StrangeMPD))';
-				$[CURLOPT_RETURNTRANSFER] = true;
-				$[CURLOPT_SSL_VERIFYPEER] = false;
-			if(!is_null($this->username) && !is_null($this->password) && $auth)
-				$[CURLOPT_USERPWD] = $this->username.':'.$this->password;
-				$[CURLOPT_POST] = ($method == 'POST');
-				$[CURLOPT_POSTFIELDS] = $postfields;
-				$[CURLOPT_URL] = $url;
-			curl_setopt_array($this->ch, $curl_setopt);
+			curl_setopt_array($this->ch, array(
+				CURLOPT_USERAGENT       => 'MPD/1.0 (+StrangeMPD))',
+				CURLOPT_RETURNTRANSFER  => true,
+				CURLOPT_SSL_VERIFYPEER  => false,
+				CURLOPT_USERPWD			=> (!is_null($this->username) && !is_null($this->password) && $auth)? $this->username.':'.$this->password : '',
+				CURLOPT_POST            => ($method == 'POST'),
+				CURLOPT_POSTFIELDS      => $postfields,
+				CURLOPT_URL             => $url
+			));
         	return curl_exec($this->ch);
     	}
 	}
