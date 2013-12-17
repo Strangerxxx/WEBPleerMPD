@@ -9,16 +9,16 @@
 	class Pleer
 	{
 		/**
-		 * Pleer API application identificator
+		 * Pleer API application client identificator
 		 * @var string
 		 */
-		private $username;
+		private $client_id;
 
 		/**
-		 * Pleer API application key
+		 * Pleer API application client secret key
 		 * @var string
 		 */
-		private $password;
+		private $client_secret;
 
 		/**
 		 * Pleer API access token
@@ -87,19 +87,19 @@
 		const METHOD_ENDPOINT	=	'http://api.pleer.com/index.php';
 
 		/**
-		 * @param	string	$username
-		 * @param	string	$password
+		 * @param	string	$client_id
+		 * @param	string	$client_secret
 		 * @param	string	$token_endpoint
 		 * @param	string	$method_endpoint
 		 * @throws	PleerException
 		 * @return	void
 		 */
-		public function __construct($username, $password, $token_endpoint = self::TOKEN_ENDPOINT, $method_endpoint = self::METHOD_ENDPOINT)
+		public function __construct($client_id, $client_secret, $token_endpoint = self::TOKEN_ENDPOINT, $method_endpoint = self::METHOD_ENDPOINT)
 		{
 			$this->token_endpoint = $token_endpoint;
 			$this->method_endpoint = $method_endpoint;
-			$this->username = $username;
-			$this->password = $password;
+			$this->client_id = $client_id;
+			$this->client_secret = $client_secret;
 			$this->ch = curl_init();
 			$this->getAccessToken();
 		}
@@ -119,9 +119,17 @@
 		public function getAccessToken()
 		{
 			if(!is_null($this->access_token)) return $this->access_token;
-			elseif(is_null($this->username) || is_null($this->password)) return false;
+			elseif(is_null($this->client_id) || is_null($this->client_secret)) return false;
 			else{
-				$rs = json_decode($this->request($this->token_endpoint, 'POST', array('grant_type'=>'client_credentials'), true), true);
+				$rs = json_decode($this->request(
+					$this->token_endpoint,
+					'POST',
+					array(
+						'grant_type'	=>	'client_credentials',
+						'client_id'		=>	$this->client_id,
+						'client_secret'	=>	$this->client_secret
+						)
+					), true);
 				if(isset($rs['error'])){
 					$this->error = $rs['error'];
 					$this->error_description = $rs['error_description'];
@@ -294,7 +302,7 @@
 		 * @throws	PleerException
 		 * @return	string
 		 */
-		private function request($url, $method = 'GET', $postfields = array(), $auth = false)
+		private function request($url, $method = 'GET', $postfields = array())
 		{
 			curl_setopt_array($this->ch, array(
 				CURLOPT_USERAGENT       => 'MPD/1.0 (+StrangeMPD))',
@@ -304,8 +312,6 @@
 				CURLOPT_POSTFIELDS      => $postfields,
 				CURLOPT_URL             => $url
 			));
-			if(!is_null($this->username) && !is_null($this->password) && $auth)
-				curl_setopt($this->ch, CURLOPT_USERPWD, $this->username.':'.$this->password)
         	return curl_exec($this->ch);
     	}
 	}
