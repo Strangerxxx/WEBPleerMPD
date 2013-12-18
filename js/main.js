@@ -11,7 +11,7 @@ $(document).ready(function(){
 var timer = setInterval(update, 10000);
 function addTrack(val){ getList({action: 'addTrack', track_id: val}, config.url); timer = setInterval(update, 10000);}
 function update(){ getList({action: 'queue'}, config.url) }
-function search(val){ clearInterval(timer); getList({action: 'addTrack', query: val}, config.url); }
+function search(val){ clearInterval(timer); getList({action: 'search', query: val, page: '1'}, config.url); }
 //
 function getList(param,url){
 	var action = param.action;
