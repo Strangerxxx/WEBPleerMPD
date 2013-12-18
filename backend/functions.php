@@ -25,7 +25,7 @@
 				'track_id'	=>	$track['track_id'],
 				'status'	=>	'',
 				'name'		=>	$track['artist'].' - '.$track['track'],
-				'duration'	=>	$track['length']
+				'duration'	=>	$track['lenght']
 				)
 			);
 		}
