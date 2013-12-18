@@ -19,7 +19,7 @@ function getList(param,url){
 	switch(action){
 		case 'queue':
 			req = sendRequest({action: 'queue'},url);
-			if(req.status) return updateList(req.list);
+			return updateList(req.list);
 			break;
 		case 'search':
 			req = sendRequest({
