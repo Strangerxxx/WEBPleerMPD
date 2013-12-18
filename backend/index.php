@@ -5,7 +5,6 @@
 	require_once 'functions.php';
 	$mpd = new mpd(MPD_HOST,MPD_PORT,MPD_PWD);
 	$pleer = new Pleer(PLEER_USER,PLEER_PASSWORD);
-	print_r($pleer->tracks_search('qwe', '1'));
 	if(!$mpd->connected) die('Could not connected to mpd-server');
 	if(!$pleer->auth) die('Pleer error: '.$pleer->error.' : '.$pleer->error_description);
 	if(!empty($_GET['action'])){
