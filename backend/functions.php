@@ -23,7 +23,7 @@
 		$searchlist = $pleer->tracks_search($query, $page);
 		foreach ($searchlist as $id => $track) {
 			array_push($list, array(
-				'track_id'	=>	$track['track_id'],
+				'track_id'	=>	$track['id'],
 				'status'	=>	'',
 				'artist'	=>	$track['artist'],
 				'name'		=>	$track['track'],
