@@ -19,14 +19,14 @@ body{
 	display: inline-block;
 }
 .list .list-group .list-group-item span.left{
-	width: 50px;
+	width: 10%;
 	text-align: left;
 }
 .list .list-group .list-group-item span.center{
-	width: 500px;
+	width: 79%;
 	text-align: center;
 }
 .list .list-group .list-group-item span.right{
-	width: 50px;
+	width: 10%;
 	text-align: right;
 }
