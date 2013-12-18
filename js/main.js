@@ -19,7 +19,7 @@ function getList(param,url){
 	switch(action){
 		case 'queue':
 			req = sendRequest({action: 'queue'},url);
-			req.success(function(){
+			req.success(function(data){
 				if(data.status) return updateList(data.list);
 			});
 			break;
@@ -29,7 +29,7 @@ function getList(param,url){
 				query: param.query,
 				page: param.page
 			},url);
-			req.success(function(){
+			req.success(function(data){
 				if(data.status) return updateList(data.list);
 			});
 			break;
@@ -38,7 +38,7 @@ function getList(param,url){
 				action: 'addTrack',
 				track_id: param.track_id
 			},url);
-			req.success(function(){
+			req.success(function(data){
 				if(data.status) return getList({action: 'queue'},url);
 			});
 			break;
