@@ -9,7 +9,8 @@
 				array_push($list, array(
 					'track_id'	=>	$track['Id'],
 					'status'	=>	$status,
-					'name'		=>	$track['Artist'].' - '.$track['Title'],
+					'artist'	=>	$track['Artist'],
+					'name'		=>	$track['Title'],
 					'duration'	=>	$track['Time']
 					)
 				);
@@ -24,7 +25,8 @@
 			array_push($list, array(
 				'track_id'	=>	$track['track_id'],
 				'status'	=>	'',
-				'name'		=>	$track['artist'].' - '.$track['track'],
+				'artist'	=>	$track['artist'],
+				'name'		=>	$track['track'],
 				'duration'	=>	$track['lenght']
 				)
 			);
