@@ -5,7 +5,7 @@
 		$playlist = $mpd->playlist;
 		if(!is_null($playlist)){
 			foreach ($playlist as $id => $track) {
-				$status = ( $id == $mpd->current_track_id ? 'playing' : '' );
+				$status = ( $id == $mpd->current_track_id ? 'active' : '' );
 				array_push($list, array(
 					'track_id'	=>	$track['Id'],
 					'status'	=>	$status,
