@@ -3,6 +3,7 @@ var config = {
 }
 //bindings
 $(document).ready(function(){
+	update();
 	$('#search-input').bind('change', function(){ search($('#search-input').val()) });
 	$('#search-button').bind('click', function(){ search($('#search-input').val()) });
 });
@@ -47,7 +48,7 @@ function getList(param,url){
 //
 function updateList(list){
 	var list_group = $("#list");
-	list_group.find(':not(.label)').remove();
+	list_group.find('.list-group-item').find(':not(.label)+').remove();
 	var i;
 	var duration;
 	var timecode;
