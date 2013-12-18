@@ -1,5 +1,5 @@
 var config = {
-	url: "/backend"
+	url: "backend/"
 }
 //bindings
 $(document).ready(function(){
@@ -20,8 +20,7 @@ function getList(param,url){
 	switch(action){
 		case 'queue':
 			req = sendRequest({action: 'queue'},url);
-			req.success(function(data){res = data;})
-			return updateList(res.list);
+			req.success(function(data){return updateList(data.list);})
 			break;
 		case 'search':
 			req = sendRequest({
