@@ -48,7 +48,7 @@ function getList(param,url){
 //
 function updateList(list){
 	var list_group = $("#list");
-	list_group.find(':not(.list-head)').remove();
+	list_group.find('.list-group-item:not(.list-head)').remove();
 	var i;
 	var duration;
 	var timecode;
