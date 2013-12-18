@@ -43,10 +43,20 @@ function getList(param,url){
 function updateList(list){
 	var list_group = $("#list");
 	list_group.empty();
+	var i;
 	$.each(list, function(key,val){
-		list_group.append("<li class='list-group-item item-"+key+"'><span class='left'>"+key+".</span><span class='center'>"+val.artist+"&#8211;"+val.name+"</span><span class='right'></span></li>");
+		i = parseInt(key)+1;
+		duration = secsToTime(val.duration);
+		list_group.append("<a class='list-group-item item-"+i+" "+val.status+"'><span class='left'>"+i+".</span><span class='center'>"+val.artist+"&#8211;"+val.name+"</span><span class='right'>"+duration.h+":"+duration.m+":"+duration.s+"</span></a>");
 	});
 	return true;
+}
+function secsToTime(secs){
+	var hours = Math.floor(secs / 3600);
+	secs = secs - hours * 3600;
+	var minutes = Math.floor(secs / 60);
+	var seconds = secs - minutes * 60;
+	return {h: hours, m: minutes, s: seconds};
 }
 //
 function sendRequest(data,url){
