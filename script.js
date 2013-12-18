@@ -15,7 +15,7 @@ function search(val){ clearInterval(timer); getList({action: 'addTrack', query: 
 function getList(param,url){
 	var action = param.action;
 	var list;
-	var req;
+	var req = {};
 	switch(action){
 		case 'queue':
 			req = sendRequest({action: 'queue'},url);
