@@ -3,8 +3,8 @@ var config = {
 }
 //bindings
 $(document).ready(function(){
-	$('.search input').bind('change', function(){ search($('.search input').val()) });
-	$('.search i').bind('click', function(){ search($('.search input').val()) });
+	$('#search-input').bind('change', function(){ search($('#search-input').val()) });
+	$('#search-button').bind('click', function(){ search($('#search-input').val()) });
 });
 // shortcuts
 var timer = setInterval(update, 10000);
@@ -40,10 +40,11 @@ function getList(param,url){
 }
 //
 function updateList(list){
-	var select = $(".list select");
-	select.empty();
+	var list_group = $(".list .list_group");
+	list_group.empty();
 	list.each(function(key,val){
-		select.append("<option onclick='addTrack('"+val.track_id+"')' class='"+val.status+"'>"+key+" - "+val.name+" - "+val.duration+"</option>");
+		list_group.append("<li class='list-group-item item-"+key+"''></li>")
+		.append("<span class='left'>"+key+".</span><span class='center'>"+val.artist+"&#8211;"+val.name+"</span><span class='right'></span>");
 	});
 	return true;
 }
