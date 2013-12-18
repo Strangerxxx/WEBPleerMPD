@@ -145,27 +145,59 @@
 
 		/**
 		 * @param	string	$query
-		 * @param	string	$page
+		 * @param	int		$page
 		 * @throws	PleerException
 		 * @return	mixed
 		 */
-		public function tracks_search($query = '', $page = '1')
+		public function tracks_search($query = '', $page = 1)
 		{
 			if(!$this->auth){
 				$this->getAccessToken();
 			}
-			$rs = json_decode($this->request(
-				$this->method_endpoint,
-				'POST',
-				array(
-					'access_token'	=>	$this->access_token,
-					'method'		=>	'tracks_search',
-					'query'			=>	$query,
-					'page'			=>	$page
-					)
-				),
-				true
-			);
+			$args = 'access_token='.$this->access_token;
+			$args .= '&method=tracks_search';
+			$args .= '&query='.$query;
+			$args .= '&page='.$page;
+			$rs = json_decode($this->request($this->method_endpoint, 'POST', $args), true);
+			if(isset($rs['error'])){
+				$this->error = $rs['error'];
+				$this->error_description = $rs['error_description'];
+				return false;
+			} elseif(isset($rs['success']) && $rs['success'] == true){
+				$tracks = $rs['tracks'];
+				if(empty($tracks)){
+					$this->warning = 'no_tracks_found';
+					$this->warning_description = 'There is no tracks found by your query';
+					return false;
+				} else{
+					$return_tracks = array();
+					foreach ($tracks as $track) {
+						array_push($return_tracks, $track);
+					}
+					return $return_tracks;
+				}
+				
+			}
+		}
+
+		/**
+		 * @param	int		$list_type
+		 * @param	int		$page
+		 * @param	string	$language
+		 * @throws	PleerException
+		 * @return	mixed
+		 */
+		public function get_top_list($list_type = 1, $page = 1, $language = 'en')
+		{
+			if(!$this->auth){
+				$this->getAccessToken();
+			}
+			$args = 'access_token='.$this->access_token;
+			$args .= '&method=get_top_list';
+			$args .= '&list_type='.$list_type;
+			$args .= '&page='.$page;
+			$args .= '&language='.$language;
+			$rs = json_decode($this->request($this->method_endpoint, 'POST', $args), true);
 			if(isset($rs['error'])){
 				$this->error = $rs['error'];
 				$this->error_description = $rs['error_description'];
@@ -197,17 +229,10 @@
 			if(!$this->auth){
 				$this->getAccessToken();
 			}
-			$rs = json_decode($this->request(
-				$this->method_endpoint,
-				'POST',
-				array(
-					'access_token'	=>	$this->access_token,
-					'method'		=>	'tracks_get_info',
-					'track_id'		=>	$track_id
-					)
-				),
-				true
-			);
+			$args = 'access_token='.$this->access_token;
+			$args .= '&method=tracks_get_info';
+			$args .= '&track_id='.$track_id;
+			$rs = json_decode($this->request($this->method_endpoint, 'POST', $args), true);
 			if(isset($rs['error'])){
 				$this->error = $rs['error'];
 				$this->error_description = $rs['error_description'];
@@ -232,17 +257,10 @@
 			if(!$this->auth){
 				$this->getAccessToken();
 			}
-			$rs = json_decode($this->request(
-				$this->method_endpoint,
-				'POST',
-				array(
-					'access_token'	=>	$this->access_token,
-					'method'		=>	'tracks_get_lyrics',
-					'track_id'		=>	$track_id
-					)
-				),
-				true
-			);
+			$args = 'access_token='.$this->access_token;
+			$args .= '&method=tracks_get_lyrics';
+			$args .= '&track_id='.$track_id;
+			$rs = json_decode($this->request($this->method_endpoint, 'POST', $args), true);
 			if(isset($rs['error'])){
 				$this->error = $rs['error'];
 				$this->error_description = $rs['error_description'];
@@ -268,18 +286,11 @@
 			if(!$this->auth){
 				$this->getAccessToken();
 			}
-			$rs = json_decode($this->request(
-				$this->method_endpoint,
-				'POST',
-				array(
-					'access_token'	=>	$this->access_token,
-					'method'		=>	'tracks_get_download_link',
-					'track_id'		=>	$track_id,
-					'reason'		=>	$reason
-					)
-				),
-				true
-			);
+			$args = 'access_token='.$this->access_token;
+			$args .= '&method=tracks_get_download_link';
+			$args .= '&track_id='.$track_id;
+			$args .= '&reason='.$reason;
+			$rs = json_decode($this->request($this->method_endpoint, 'POST', $args), true);
 			if(isset($rs['error'])){
 				$this->error = $rs['error'];
 				$this->error_description = $rs['error_description'];
@@ -302,15 +313,15 @@
 		 * @throws	PleerException
 		 * @return	string
 		 */
-		private function request($url, $method = 'GET', $postfields = array())
+		private function request($url, $method = 'POST', $postfields)
 		{
 			curl_setopt_array($this->ch, array(
-				CURLOPT_USERAGENT       => 'MPD/1.0 (+StrangeMPD))',
-				CURLOPT_RETURNTRANSFER  => true,
-				CURLOPT_SSL_VERIFYPEER  => false,
-				CURLOPT_POST            => ($method == 'POST'),
-				CURLOPT_POSTFIELDS      => $postfields,
-				CURLOPT_URL             => $url
+				CURLOPT_USERAGENT       =>	'MPD/1.0 (+StrangeMPD))',
+				CURLOPT_RETURNTRANSFER  =>	true,
+				CURLOPT_SSL_VERIFYPEER  =>	false,
+				CURLOPT_POST            =>	($method == 'POST'),
+				CURLOPT_POSTFIELDS      =>	$postfields,
+				CURLOPT_URL             =>	$url
 			));
         	return curl_exec($this->ch);
     	}
