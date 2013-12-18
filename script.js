@@ -44,8 +44,7 @@ function updateList(list){
 	var list_group = $("#list");
 	list_group.empty();
 	$.each(list, function(key,val){
-		list_group.append("<li class='list-group-item item-"+key+"'></li>")
-		.append("<span class='left'>"+key+".</span><span class='center'>"+val.artist+"&#8211;"+val.name+"</span><span class='right'></span>");
+		list_group.append("<li class='list-group-item item-"+key+"'><span class='left'>"+key+".</span><span class='center'>"+val.artist+"&#8211;"+val.name+"</span><span class='right'></span></li>");
 	});
 	return true;
 }
