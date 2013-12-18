@@ -16,12 +16,10 @@ function getList(param,url){
 	var action = param.action;
 	var list;
 	var req;
-	var res;
 	switch(action){
 		case 'queue':
 			req = sendRequest({action: 'queue'},url);
-			req.success(function(data){res = data;})
-			return updateList(res.list);
+			if(req.status) return updateList(req.list);
 			break;
 		case 'search':
 			req = sendRequest({
@@ -52,9 +50,10 @@ function updateList(list){
 }
 //
 function sendRequest(data,url){
-	return $.ajax({
+	$.ajax({
 		dataType: 'json',
 		url: url,
 		data: data,
+		success: function(data){return data;}
 	});
 }
