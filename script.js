@@ -41,9 +41,9 @@ function getList(param,url){
 }
 //
 function updateList(list){
-	var list_group = $(".list .list_group");
+	var list_group = $("#list");
 	list_group.empty();
-	list.each(function(key,val){
+	$.each(list, function(key,val){
 		list_group.append("<li class='list-group-item item-"+key+"''></li>")
 		.append("<span class='left'>"+key+".</span><span class='center'>"+val.artist+"&#8211;"+val.name+"</span><span class='right'></span>");
 	});
