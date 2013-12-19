@@ -24,19 +24,44 @@ function getList(param,url){
 				if(data.status) return updateList(data.list);
 			});
 			break;
+		case 'library':
+			req = sendRequest({action: 'library'},url);
+			req.success(function(data){
+				if(data.status) return updateList(data.list);
+			});
+			break;
 		case 'search':
 			req = sendRequest({
 				action: 'search',
+				context: param.context,
 				query: param.query,
-				page: param.page
+				page: param.page,
 			},url);
 			req.success(function(data){
 				if(data.status) return updateList(data.list);
 			});
 			break;
+		case 'downloadTrack':
+			req = sendRequest({
+				action: 'downloadTrack',
+				track_id: param.track_id
+			},url);
+			req.success(function(data){
+				if(data.status) return getList({action: 'library'},url);
+			});
+			break;
 		case 'addTrack':
 			req = sendRequest({
 				action: 'addTrack',
+				track_id: param.track_id
+			},url);
+			req.success(function(data){
+				if(data.status) return getList({action: 'queue'},url);
+			});
+			break;
+		case 'playTrack':
+			req = sendRequest({
+				action: 'playTrack',
 				track_id: param.track_id
 			},url);
 			req.success(function(data){
