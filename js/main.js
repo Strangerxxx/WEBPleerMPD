@@ -6,6 +6,9 @@ $(document).ready(function(){
 	update();
 	$('#search-input').bind('change', function(){ search($('#search-input').val()) });
 	$('#search-button').bind('click', function(){ search($('#search-input').val()) });
+	$('div.switch ul li a.queue').tab('show');
+	$('div.switch ul li a.library').tab('show');
+	$('div.switch ul li a.queue').bind('shown.bs.tab',function(){})
 });
 // shortcuts
 var timer = setInterval(update, 10000);
